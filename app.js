@@ -11,6 +11,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   console.log("Antoher midleaware");
+  res.send("<h1>Hello tiranitar</h1>");
 });
 
 const server = http.createServer(app);
