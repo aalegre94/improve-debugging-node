@@ -9,5 +9,8 @@
     "//": "Aquí puedo agregar comentarios a los scripts"
   },
   "author": "Angel Alegre",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
