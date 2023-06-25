@@ -12,6 +12,7 @@ const shopRoutes = require("./routes/shop");
 //midleware
 app.get("/favicon.ico", (req, res) => res.status(204)); //funcion para que no repita la salida de consola
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
 //rutas con patron y sin
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
