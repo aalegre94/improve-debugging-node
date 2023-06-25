@@ -2,10 +2,10 @@
 //npm install --save express
 //npm install --save body-parser
 const path = require("path");
-const express = require("express");
+const express = require("express"); //import express
 const bodyParser = require("body-parser");
 
-const app = express();
+const app = express(); //declaro express
 //rutas
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
