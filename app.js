@@ -21,7 +21,7 @@ app.use("/admin", adminData.rutas);
 app.use(shopRoutes);
 //funcion de error
 app.use((req, res, next) => {
-  res.status(404).render("404");
+  res.status(404).render("404", { pageTitle: "Page not found" });
 });
 //
 app.listen(3000);

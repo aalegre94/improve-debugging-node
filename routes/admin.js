@@ -9,7 +9,10 @@ const misProductos = [];
 router.get("/add-product", (req, res, next) => {
   //console.log("Antoher midleaware 2");
   //res.sendFile(path.join(rootDir, "views", "add-product.html"));
-  res.render("add-product", { pageTitle: "Add Products" });
+  res.render("add-product", {
+    pageTitle: "Add Products",
+    path: "/admin/add-product",
+  });
 });
 
 //  /admin/add-product => POST
