@@ -6,15 +6,15 @@ const express = require("express"); //import express
 const bodyParser = require("body-parser");
 
 const app = express(); //declaro express
-//rutas
-const adminRoutes = require("./routes/admin");
+//archivos con las rutas
+const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 //midleware
 app.get("/favicon.ico", (req, res) => res.status(204)); //funcion para que no repita la salida de consola
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 //rutas con patron y sin
-app.use("/admin", adminRoutes);
+app.use("/admin", adminData.rutas);
 app.use(shopRoutes);
 //funcion de error
 app.use((req, res, next) => {
