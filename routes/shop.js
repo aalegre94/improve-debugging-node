@@ -6,7 +6,7 @@ const rootDir = require("../util/path");
 const adminData = require("./admin");
 
 router.get("/", (req, res, next) => {
-  //console.log("shop.js", adminData.productos);
+  console.log("shop.js", adminData.productos);
   const misProductos = adminData.productos; //recibo los productos y los mando a la plantilla
   res.render("shop", { prod: misProductos, docTitle: "My Shop" });
   //res.sendFile(path.join(rootDir, "views", "shop.html"));
