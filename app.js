@@ -1,11 +1,14 @@
 //npm install --save-dev nodemon
 //npm install --save express
 //npm install --save body-parser
+//npm install --save ejs pug express-handlebars
 const path = require("path");
 const express = require("express"); //import express
 const bodyParser = require("body-parser");
 
 const app = express(); //declaro express
+app.set("view engine", "pug");
+app.set("views", "views");
 //archivos con las rutas
 const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
