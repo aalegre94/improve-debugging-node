@@ -11,9 +11,11 @@ const expressHbs = require("express-handlebars");
 const app = express(); //declaro express
 
 //cargando pug para las plantillas
-app.engine("hbs", expressHbs({ layoutsDir: })); //creando el motor, pug ya viene creado
+//eje viene integrado como pug
+app.set("view engine", "ejs");
+//app.engine("hbs", expressHbs()); //creando el motor, pug ya viene creado
 //app.engine('has', engine({layoutsDir: 'views/layouts/', defaultLayout: 'main-layout', extname: 'hbs'}));
-app.set("view engine", "hbs"); //motor hbs
+//app.set("view engine", "hbs"); //motor hbs
 //app.set("view engine", "pug"); //motor pug
 app.set("views", "views"); //donde estan nuestas vistas
 
