@@ -1,20 +1,21 @@
-const misProductos = [];
-
+const Producto = require("../models/product"); //importo mi clase
+//Controla cuando quiero ver el form para agregar un producto
 exports.getAddProduct = (req, res, next) => {
   res.render("add-product", {
     pageTitle: "Add TI Products",
     path: "/admin/add-product",
-  }); //para pug
+  });
 };
-
+//Controla cuando ya llene el form y lo que quiero hacer con la data
 exports.postAddProduct = (req, res, next) => {
-  misProductos.push({ title: req.body.title, price: req.body.price });
+  const myProducto = new Producto(req.body.title, req.body.price); //instancio un nuevo producto
+  myProducto.save(); //lo guardo en el array
   res.redirect("/");
 };
-
+//controla cuando quiero obtener una lista con los productos
 exports.getProducts = (req, res, next) => {
+  const misProductos = Producto.fetchAll(); //obtengo todos los productos
   console.log("shop.js", misProductos);
-  //const misProductos = adminData.productos; //recibo los productos y los mando a la plantilla
   res.render("shop", {
     prod: misProductos,
     pageTitle: "My TIW Shop",
