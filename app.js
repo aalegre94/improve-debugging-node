@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 app.set("views", "views"); //donde estan nuestas vistas
 
 //archivos con las rutas
-const adminData = require("./routes/admin");
+const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
 //midleware
@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false })); //para q salga bien el body
 app.use(express.static(path.join(__dirname, "public"))); //para carga contenido static
 
 //rutas con patron y sin
-app.use("/admin", adminData.rutas);
+app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
 //funcion de error
