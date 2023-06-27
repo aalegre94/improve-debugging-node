@@ -14,11 +14,12 @@ exports.postAddProduct = (req, res, next) => {
 };
 //controla cuando quiero obtener una lista con los productos
 exports.getProducts = (req, res, next) => {
-  const misProductos = Producto.fetchAll(); //obtengo todos los productos
-  console.log("shop.js", misProductos);
-  res.render("shop", {
-    prod: misProductos,
-    pageTitle: "My TIW Shop",
-    path: "/",
-  });
+  Producto.fetchAll((misProductos) => {
+    console.log("shop.js", misProductos);
+    res.render("shop", {
+      prod: misProductos,
+      pageTitle: "My TIW Shop",
+      path: "/",
+    });
+  }); //obtengo todos los productos
 };
