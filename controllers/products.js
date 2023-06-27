@@ -1,4 +1,4 @@
-const Producto = require("../models/product"); //importo mi clase
+const Producto = require("../models/product"); //importo mi clase con mi modelo del producto
 //Controla cuando quiero ver el form para agregar un producto
 exports.getAddProduct = (req, res, next) => {
   res.render("add-product", {
