@@ -13,6 +13,12 @@ exports.getProducts = (req, res, next) => {
   }); //obtengo todos los productos
 };
 
+exports.getProduct = (req, res, next) => {
+  const proId = req.params.productId;
+  console.log(proId);
+  res.redirect("/");
+};
+
 exports.getIndex = (req, res, next) => {
   Producto.fetchAll((misProductos) => {
     console.log("shop.js", misProductos);
