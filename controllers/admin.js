@@ -9,7 +9,12 @@ exports.getAddProduct = (req, res, next) => {
 
 //Controla cuando ya llene el form y lo que quiero hacer con la data
 exports.postAddProduct = (req, res, next) => {
-  const myProducto = new Producto(req.body.title, req.body.price); //instancio un nuevo producto
+  const title = req.body.title;
+  const imageUrl = req.body.imageUrl;
+  const price = req.body.price;
+  const description = req.body.description;
+
+  const myProducto = new Producto(title, imageUrl, description, price); //instancio un nuevo producto
   myProducto.save(); //lo guardo en el array
   res.redirect("/");
 };

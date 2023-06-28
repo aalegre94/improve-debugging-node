@@ -21,9 +21,11 @@ const getProductosFromFile = (cb) => {
 module.exports = class Producto {
   //declaro un constructor para cuando cree un nuevo Producto
   //al cual le pasare sus atributos como argumentos
-  constructor(t, p) {
-    this.title = t;
-    this.price = p;
+  constructor(title, imageUrl, description, price) {
+    this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   }
   //esta metodo es para agregar ese producto al array despues de crear el objeto
   save() {
