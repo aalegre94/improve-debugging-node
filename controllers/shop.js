@@ -14,8 +14,12 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getProduct = (req, res, next) => {
+  //obetniendo el id para trabajar el elemento
   const proId = req.params.productId;
-  console.log(proId);
+  Producto.findByid(proId, (misProductos) => {
+    console.log(misProductos);
+  });
+
   res.redirect("/");
 };
 
