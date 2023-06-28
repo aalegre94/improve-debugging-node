@@ -1,7 +1,7 @@
 const Producto = require("../models/product"); //importo mi clase con mi modelo del producto
 //Controla cuando quiero ver el form para agregar un producto
 exports.getAddProduct = (req, res, next) => {
-  res.render("add-product", {
+  res.render("admin/add-product", {
     pageTitle: "Add TI Products",
     path: "/admin/add-product",
   });
@@ -16,7 +16,7 @@ exports.postAddProduct = (req, res, next) => {
 exports.getProducts = (req, res, next) => {
   Producto.fetchAll((misProductos) => {
     console.log("shop.js", misProductos);
-    res.render("shop", {
+    res.render("shop/product-list", {
       prod: misProductos,
       pageTitle: "My TIW Shop",
       path: "/",
