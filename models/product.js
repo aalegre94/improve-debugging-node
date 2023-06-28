@@ -29,6 +29,7 @@ module.exports = class Producto {
   }
   //esta metodo es para agregar ese producto al array despues de crear el objeto
   save() {
+    this.id = Math.random().toString();
     getProductosFromFile((productos) => {
       productos.push(this);
       fs.writeFile(p, JSON.stringify(productos), (err) => {

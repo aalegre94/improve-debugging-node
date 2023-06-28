@@ -8,7 +8,7 @@ exports.getProducts = (req, res, next) => {
     res.render("shop/product-list", {
       prod: misProductos,
       pageTitle: "All Products TI",
-      path: "/",
+      path: "/products",
     });
   }); //obtengo todos los productos
 };
@@ -18,7 +18,7 @@ exports.getIndex = (req, res, next) => {
     console.log("shop.js", misProductos);
     res.render("shop/index", {
       prod: misProductos,
-      pageTitle: "My TI Shop",
+      pageTitle: "My TI Shopa",
       path: "/",
     });
   });
