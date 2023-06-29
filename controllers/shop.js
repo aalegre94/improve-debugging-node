@@ -17,10 +17,13 @@ exports.getProduct = (req, res, next) => {
   //obetniendo el id para trabajar el elemento
   const proId = req.params.productId;
   Producto.findByid(proId, (misProductos) => {
-    console.log(misProductos);
+    console.log("OneProduct", misProductos);
+    res.render("shop/product-detail", {
+      prod: misProductos,
+      pageTitle: "Detalle de Producto",
+      path: "/products",
+    });
   });
-
-  res.redirect("/");
 };
 
 exports.getIndex = (req, res, next) => {
