@@ -40,7 +40,27 @@ exports.getIndex = (req, res, next) => {
 };
 //para ver el carrito
 exports.getCart = (req, res, next) => {
-  res.render("shop/cart", { pageTitle: "Your Cart", path: "/cart" });
+  Carro.getCart((cart) => {
+    Producto.fetchAll((misProductos) => {
+      const cartProductos = [];
+      for (let miProd of misProductos) {
+        const cartProductoData = cart.products.find(
+          (prod) => prod.id === miProd.id
+        );
+        if (cartProductoData) {
+          cartProductos.push({
+            productData: miProd,
+            qty: cartProductoData.qty,
+          });
+        }
+      }
+      res.render("shop/cart", {
+        pageTitle: "Your Cart",
+        path: "/cart",
+        misProductos: cartProductos,
+      });
+    });
+  });
 };
 
 //para agregar productos desde la vista de detalle
