@@ -4,6 +4,7 @@ exports.getAddProduct = (req, res, next) => {
   res.render("admin/edit-product", {
     pageTitle: "Add TI Products",
     path: "/admin/add-product",
+    editing: false,
   });
 };
 
@@ -23,14 +24,20 @@ exports.getEditProduct = (req, res, next) => {
   //para obtener los datos opcionales despues de ?edit=true&title=new etc
   const editMode = req.query.edit;
   if (!editMode) {
-    res.redirect("/");
-  } else {
+    return res.redirect("/");
+  }
+  const proId = req.params.productId;
+  Producto.findByid(proId, (misProductos) => {
+    if (!misProductos) {
+      res.redirect("/");
+    }
     res.render("admin/edit-product", {
       pageTitle: "Edit TI Products",
       path: "/admin/edit-product",
       editing: editMode,
+      prod: misProductos,
     });
-  }
+  });
 };
 
 exports.getProductsA = (req, res, next) => {
