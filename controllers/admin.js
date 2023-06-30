@@ -21,7 +21,7 @@ exports.postAddProduct = (req, res, next) => {
 
 exports.getProductsA = (req, res, next) => {
   Producto.fetchAll((misProductos) => {
-    console.log("admin-c", misProductos);
+    // console.log("admin-c", misProductos);
     res.render("admin/products", {
       prod: misProductos,
       pageTitle: "Admin Products",
