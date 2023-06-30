@@ -40,6 +40,8 @@ exports.getEditProduct = (req, res, next) => {
   });
 };
 
+exports.postEditProduct = (req, res, next) => {};
+
 exports.getProductsA = (req, res, next) => {
   Producto.fetchAll((misProductos) => {
     // console.log("admin-c", misProductos);

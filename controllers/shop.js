@@ -19,7 +19,7 @@ exports.getProduct = (req, res, next) => {
   //aca usamo params xq es un elemento de la ruta
   const proId = req.params.productId;
   Producto.findByid(proId, (misProductos) => {
-    console.log("OneProduct", misProductos);
+    // console.log("OneProduct", misProductos);
     res.render("shop/product-detail", {
       prod: misProductos,
       pageTitle: "Detalle de Producto",
@@ -33,7 +33,7 @@ exports.getIndex = (req, res, next) => {
     // console.log("shop.js", misProductos);
     res.render("shop/index", {
       prod: misProductos,
-      pageTitle: "My TI Shopa",
+      pageTitle: "My TI Shop",
       path: "/",
     });
   });

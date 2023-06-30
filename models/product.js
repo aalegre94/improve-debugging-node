@@ -34,6 +34,7 @@ module.exports = class Producto {
       productos.push(this);
       fs.writeFile(p, JSON.stringify(productos), (err) => {
         console.log(err);
+        console.log("ok");
       });
     });
   }
