@@ -1,5 +1,7 @@
 const fs = require("fs");
 const path = require("path");
+
+const Cart = require("./cart");
 // const misProductos = []; //para almacenar mis elementos
 //declaro una clase Producto
 const p = path.join(
@@ -49,6 +51,19 @@ module.exports = class Producto {
       }
     });
   }
+
+  static deleteById(id) {
+    getProductosFromFile((productos) => {
+      const producto = productos.find((prod) => prod.id === id);
+      const updatedProducts = productos.filter((prod) => prod.id !== id);
+      fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
+        if (!err) {
+          Cart.deleteProduct(id, producto.price);
+        }
+      });
+    });
+  }
+
   //este metodo statico es para obtener todos los elementos
   static fetchAll(cb) {
     getProductosFromFile(cb);

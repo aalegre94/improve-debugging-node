@@ -50,8 +50,8 @@ exports.postEditProduct = (req, res, next) => {
     proId,
     updateTitle,
     updateImageUrl,
-    updatePrice,
-    updateDescription
+    updateDescription,
+    updatePrice
   );
   myUpdateProducto.save();
   res.redirect("/admin/products");
@@ -66,4 +66,10 @@ exports.getProductsA = (req, res, next) => {
       path: "/admin/products",
     });
   });
+};
+
+exports.postDeleteProduct = (req, res, next) => {
+  const proId = req.body.productId;
+  Producto.deleteById(proId);
+  res.redirect("/admin/products");
 };
