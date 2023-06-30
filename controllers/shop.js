@@ -1,4 +1,5 @@
 const Producto = require("../models/product"); //importo mi clase con mi modelo del producto
+const Carro = require("../models/cart");
 //Controla cuando quiero ver el form para agregar un producto
 
 //controla cuando quiero obtener una lista con los productos
@@ -47,7 +48,10 @@ exports.postCart = (req, res, next) => {
   //aca usamos body xq es un elemento del form
   //para usarlo usamos el name de cada elemento html
   const prodId = req.body.productId;
-  console.log("postCart - ", prodId);
+  // console.log("postCart - ", prodId);
+  Producto.findByid(prodId, (misProductos) => {
+    Carro.addProduct(prodId, misProductos.price);
+  });
   res.redirect("/cart");
 };
 
