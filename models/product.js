@@ -21,7 +21,8 @@ const getProductosFromFile = (cb) => {
 module.exports = class Producto {
   //declaro un constructor para cuando cree un nuevo Producto
   //al cual le pasare sus atributos como argumentos
-  constructor(title, imageUrl, description, price) {
+  constructor(id, title, imageUrl, description, price) {
+    this.id = id;
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
@@ -29,13 +30,23 @@ module.exports = class Producto {
   }
   //esta metodo es para agregar ese producto al array despues de crear el objeto
   save() {
-    this.id = Math.random().toString();
     getProductosFromFile((productos) => {
-      productos.push(this);
-      fs.writeFile(p, JSON.stringify(productos), (err) => {
-        console.log(err);
-        console.log("ok");
-      });
+      if (this.id) {
+        const existingProductIndex = productos.findIndex(
+          (prod) => prod.id === this.id
+        );
+        const updatedProducts = [...productos];
+        updatedProducts[existingProductIndex] = this;
+        fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
+          console.log(err);
+        });
+      } else {
+        this.id = Math.random().toString();
+        productos.push(this);
+        fs.writeFile(p, JSON.stringify(productos), (err) => {
+          console.log(err);
+        });
+      }
     });
   }
   //este metodo statico es para obtener todos los elementos

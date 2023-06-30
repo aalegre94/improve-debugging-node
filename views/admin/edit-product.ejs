@@ -30,7 +30,10 @@
                 <label for="price">Price</label>
                 <input type="number" name="price" id="price" step="0.01" value="<% if (editing) {%><%= prod.price %><%} %>">
             </div>
-
+            
+            <% if (editing) { %>
+                <input type="hidden" name="productId" value="<%= prod.id %>">
+            <% } %>
             <button class="btn" type="submit"><% if (editing) { %> Actualizar Producto <% } else { %> Add Product <% } %></button>
         </form>
     </main>

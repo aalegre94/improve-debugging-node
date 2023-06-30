@@ -15,7 +15,7 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const description = req.body.description;
 
-  const myProducto = new Producto(title, imageUrl, description, price); //instancio un nuevo producto
+  const myProducto = new Producto(null, title, imageUrl, description, price); //instancio un nuevo producto
   myProducto.save(); //lo guardo en el array
   res.redirect("/");
 };
@@ -40,7 +40,22 @@ exports.getEditProduct = (req, res, next) => {
   });
 };
 
-exports.postEditProduct = (req, res, next) => {};
+exports.postEditProduct = (req, res, next) => {
+  const proId = req.body.productId;
+  const updateTitle = req.body.title;
+  const updateImageUrl = req.body.imageUrl;
+  const updatePrice = req.body.price;
+  const updateDescription = req.body.description;
+  const myUpdateProducto = new Producto(
+    proId,
+    updateTitle,
+    updateImageUrl,
+    updatePrice,
+    updateDescription
+  );
+  myUpdateProducto.save();
+  res.redirect("/admin/products");
+};
 
 exports.getProductsA = (req, res, next) => {
   Producto.fetchAll((misProductos) => {
