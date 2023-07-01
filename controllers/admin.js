@@ -14,7 +14,7 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
   const description = req.body.description;
-
+  //metodo create para insertar en la bd
   Producto.create({
     title: title,
     price: price,
@@ -83,8 +83,8 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProductsA = (req, res, next) => {
-  Producto.fetchAll()
-    .then(([misProductos]) => {
+  Producto.findAll()
+    .then((misProductos) => {
       res.render("admin/products", {
         prod: misProductos,
         pageTitle: "Admin Products",

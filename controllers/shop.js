@@ -2,6 +2,7 @@ const Producto = require("../models/product"); //importo mi clase con mi modelo 
 const Carro = require("../models/cart");
 
 exports.getIndex = (req, res, next) => {
+  //metodo findAll para traer todo de la bd, se puede poner where para condiciones
   Producto.findAll()
     .then((misProductos) => {
       res.render("shop/index", {
