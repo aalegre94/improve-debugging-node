@@ -3,7 +3,6 @@
 const path = require("path");
 const express = require("express"); //import express
 const bodyParser = require("body-parser");
-// const db = require("./util/database");
 
 const app = express(); //declaro express
 
@@ -16,6 +15,7 @@ app.set("views", "views"); //donde estan nuestas vistas
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
+const sequelize = require("./util/database");
 
 // db.execute("SELECT * FROM productos")
 //   .then((resultado) => {
@@ -37,5 +37,14 @@ app.use(shopRoutes);
 //funcion de error
 app.use(errorController.get404);
 
+sequelize
+  .sync()
+  .then((resultado) => {
+    // console.log(resultado);
+    app.listen(3000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 //puerto escucha
-app.listen(3000);
