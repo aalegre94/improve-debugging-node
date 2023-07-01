@@ -15,13 +15,27 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const description = req.body.description;
 
-  const myProducto = new Producto(null, title, imageUrl, description, price); //instancio un nuevo producto
-  myProducto
-    .save()
-    .then(() => {
-      res.redirect("/");
+  Producto.create({
+    title: title,
+    price: price,
+    imageUrl: imageUrl,
+    description: description,
+  })
+    .then((resultado) => {
+      // console.log(resultado);
+      console.log("Producto Creado!!");
     })
-    .catch((err) => console.log(err)); //lo guardo en el array
+    .catch((err) => {
+      console.log(err);
+    });
+
+  // const myProducto = new Producto(null, title, imageUrl, description, price); //instancio un nuevo producto
+  // myProducto
+  //   .save()
+  //   .then(() => {
+  //
+  //   })
+  //   .catch((err) => console.log(err)); //lo guardo en el array
 };
 
 exports.getEditProduct = (req, res, next) => {

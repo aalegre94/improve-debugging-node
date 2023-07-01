@@ -1,4 +1,6 @@
 const Sequelize = require("sequelize");
+// const Sequelize = require("sequelize/index");
+// const Sequelize = require("sequelize").Sequelize;
 const sequelize = require("../util/database");
 
 const Producto = sequelize.define("producto", {
