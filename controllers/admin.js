@@ -45,9 +45,9 @@ exports.getEditProduct = (req, res, next) => {
     return res.redirect("/");
   }
   const proId = req.params.productId;
-  Producto.findByid(proId)
-    .then(([misProductos]) => {
-      if (!misProductos[0]) {
+  Producto.findByPk(proId)
+    .then((miProducto) => {
+      if (!miProducto) {
         res.redirect("/");
       }
       // console.log(misProductos);
@@ -55,7 +55,7 @@ exports.getEditProduct = (req, res, next) => {
         pageTitle: "Edit TI Products",
         path: "/admin/edit-product",
         editing: editMode,
-        prod: misProductos[0],
+        prod: miProducto,
       });
     })
     .catch((err) => console.log(err));
@@ -67,19 +67,36 @@ exports.postEditProduct = (req, res, next) => {
   const updateImageUrl = req.body.imageUrl;
   const updatePrice = req.body.price;
   const updateDescription = req.body.description;
-  const myUpdateProducto = new Producto(
-    proId,
-    updateTitle,
-    updateImageUrl,
-    updateDescription,
-    updatePrice
-  );
-  myUpdateProducto
-    .update()
-    .then(() => {
+
+  Producto.findByPk(proId)
+    .then((miProducto) => {
+      miProducto.title = updateTitle;
+      miProducto.price = updatePrice;
+      miProducto.description = updateDescription;
+      miProducto.imageUrl = updateImageUrl;
+      return miProducto.save();
+    })
+    .then((resultado) => {
+      console.log("Producto Actualizado");
       res.redirect("/admin/products");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
+
+  // const myUpdateProducto = new Producto(
+  //   proId,
+  //   updateTitle,
+  //   updateImageUrl,
+  //   updateDescription,
+  //   updatePrice
+  // );
+  // myUpdateProducto
+  //   .update()
+  //   .then(() => {
+  //     res.redirect("/admin/products");
+  //   })
+  //   .catch((err) => console.log(err));
 };
 
 exports.getProductsA = (req, res, next) => {
