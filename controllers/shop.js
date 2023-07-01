@@ -52,11 +52,11 @@ exports.getProduct = (req, res, next) => {
   //obetniendo el id para trabajar el elemento
   //aca usamo params xq es un elemento de la ruta
   const proId = req.params.productId;
-  Producto.findByid(proId)
-    .then(([misProductos]) => {
+  Producto.findByPk(proId)
+    .then((miProducto) => {
       // console.log(misProductos[0]);
       res.render("shop/product-detail", {
-        prod: misProductos[0],
+        prod: miProducto,
         pageTitle: "Detalle de Producto",
         path: "/products",
       });
