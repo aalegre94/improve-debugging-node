@@ -2,27 +2,50 @@ const Producto = require("../models/product"); //importo mi clase con mi modelo 
 const Carro = require("../models/cart");
 
 exports.getIndex = (req, res, next) => {
-  Producto.fetchAll()
-    .then(([misProductos, fieldData]) => {
+  Producto.findAll()
+    .then((misProductos) => {
       res.render("shop/index", {
         prod: misProductos,
         pageTitle: "My TI Shop",
         path: "/",
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
+  // Producto.fetchAll()
+  //   .then(([misProductos, fieldData]) => {
+  //     res.render("shop/index", {
+  //       prod: misProductos,
+  //       pageTitle: "My TI Shop",
+  //       path: "/",
+  //     });
+  //   })
+  //   .catch((err) => console.log(err));
 };
 //controla cuando quiero obtener una lista con los productos
 exports.getProducts = (req, res, next) => {
-  Producto.fetchAll()
-    .then(([misProductos, fieldData]) => {
+  Producto.findAll()
+    .then((misProductos) => {
       res.render("shop/product-list", {
         prod: misProductos,
         pageTitle: "All Products TI",
         path: "/products",
       });
     })
-    .catch((err) => console.log(err)); //obtengo todos los productos
+    .catch((err) => {
+      console.log(err);
+    });
+
+  // Producto.fetchAll()
+  //   .then(([misProductos, fieldData]) => {
+  //     res.render("shop/product-list", {
+  //       prod: misProductos,
+  //       pageTitle: "All Products TI",
+  //       path: "/products",
+  //     });
+  //   })
+  //   .catch((err) => console.log(err)); //obtengo todos los productos
 };
 
 exports.getProduct = (req, res, next) => {
