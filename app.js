@@ -1,8 +1,9 @@
 //npm install --save-dev nodemon
-//npm install --save express body-parser ejs
+//npm install --save express body-parser ejs mysql2
 const path = require("path");
 const express = require("express"); //import express
 const bodyParser = require("body-parser");
+// const db = require("./util/database");
 
 const app = express(); //declaro express
 
@@ -15,6 +16,14 @@ app.set("views", "views"); //donde estan nuestas vistas
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
+
+// db.execute("SELECT * FROM productos")
+//   .then((resultado) => {
+//     console.log(resultado[0]);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 //midleware
 app.get("/favicon.ico", (req, res) => res.status(204)); //funcion para que no repita la salida de consola x el favicon
