@@ -32,6 +32,17 @@ app.get("/favicon.ico", (req, res) => res.status(204)); //funcion para que no re
 app.use(bodyParser.urlencoded({ extended: false })); //para q salga bien el body del request
 app.use(express.static(path.join(__dirname, "public"))); //para carga contenido static
 
+app.use((req, res, next) => {
+  Usuario.findByPk(1)
+    .then((usuario) => {
+      req.usuario = usuario;
+      next();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 //rutas con patron y sin
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
@@ -42,12 +53,24 @@ app.use(errorController.get404);
 //relaciones entre modelos
 Producto.belongsTo(Usuario, { constraints: true, onDelete: "CASCADE" });
 //1 a muchos(N)
+//la llave foranea se creara en el 2do modelo(Producto)
 Usuario.hasMany(Producto);
 
 sequelize
-  .sync({ force: true })
+  //.sync({ force: true })      Para forzar a los modelos, si es que hay cambios en los datos o relaciones
+  .sync()
   .then((resultado) => {
+    return Usuario.findByPk(1);
     // console.log(resultado);
+  })
+  .then((usuario) => {
+    if (!usuario) {
+      return Usuario.create({ name: "Angel", email: "fisiangel.14@gmail.com" });
+    }
+    return usuario;
+  })
+  .then((usuario) => {
+    // console.log(usuario);
     app.listen(3000);
   })
   .catch((err) => {
