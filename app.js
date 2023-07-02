@@ -18,6 +18,8 @@ const errorController = require("./controllers/error");
 const sequelize = require("./util/database");
 const Producto = require("./models/product");
 const Usuario = require("./models/user");
+const Carro = require("./models/cart");
+const CarroItem = require("./models/cart-item");
 
 // db.execute("SELECT * FROM productos")
 //   .then((resultado) => {
@@ -32,6 +34,7 @@ app.get("/favicon.ico", (req, res) => res.status(204)); //funcion para que no re
 app.use(bodyParser.urlencoded({ extended: false })); //para q salga bien el body del request
 app.use(express.static(path.join(__dirname, "public"))); //para carga contenido static
 
+//obtener usuario creado
 app.use((req, res, next) => {
   Usuario.findByPk(1)
     .then((usuario) => {
@@ -53,12 +56,17 @@ app.use(errorController.get404);
 
 //relaciones entre modelos
 Producto.belongsTo(Usuario, { constraints: true, onDelete: "CASCADE" });
-//1 a muchos(N)
 //la llave foranea se creara en el 2do modelo(Producto)
+//1 .. N - 1 a mucho
 Usuario.hasMany(Producto);
-
+//1 a 1 - 1 a 1
+Usuario.hasOne(Carro);
+Carro.belongsTo(Usuario);
+//N .. N - muchos a muchos
+Carro.belongsToMany(Producto, { through: CarroItem });
+Producto.belongsToMany(Carro, { through: CarroItem });
 sequelize
-  //.sync({ force: true })      Para forzar a los modelos, si es que hay cambios en los datos o relaciones
+  //.sync({ force: true }) //Para forzar a los modelos, si es que hay cambios en los datos o relaciones
   .sync()
   .then((resultado) => {
     return Usuario.findByPk(1);
