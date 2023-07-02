@@ -16,6 +16,8 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
 const sequelize = require("./util/database");
+const Producto = require("./models/product");
+const Usuario = require("./models/user");
 
 // db.execute("SELECT * FROM productos")
 //   .then((resultado) => {
@@ -37,8 +39,13 @@ app.use(shopRoutes);
 //funcion de error
 app.use(errorController.get404);
 
+//relaciones entre modelos
+Producto.belongsTo(Usuario, { constraints: true, onDelete: "CASCADE" });
+//1 a muchos(N)
+Usuario.hasMany(Producto);
+
 sequelize
-  .sync()
+  .sync({ force: true })
   .then((resultado) => {
     // console.log(resultado);
     app.listen(3000);
