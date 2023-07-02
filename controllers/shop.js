@@ -12,7 +12,7 @@ exports.getIndex = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
     });
   // Producto.fetchAll()
   //   .then(([misProductos, fieldData]) => {
@@ -35,7 +35,7 @@ exports.getProducts = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
     });
 
   // Producto.fetchAll()
@@ -62,7 +62,9 @@ exports.getProduct = (req, res, next) => {
         path: "/products",
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      // console.log(err);
+    });
 };
 
 //para ver el carrito

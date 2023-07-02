@@ -36,11 +36,11 @@ app.use((req, res, next) => {
   Usuario.findByPk(1)
     .then((usuario) => {
       req.usuario = usuario;
-      console.log(req.usuario);
+      //   console.log(req.usuario);
       next();
     })
     .catch((err) => {
-      console.log(err);
+      //   console.log(err);
     });
 });
 
@@ -75,7 +75,7 @@ sequelize
     app.listen(3000);
   })
   .catch((err) => {
-    console.log(err);
+    // console.log(err);
   });
 
 //puerto escucha

@@ -30,7 +30,7 @@ exports.postAddProduct = (req, res, next) => {
       res.redirect("/admin/products");
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
     });
 
   // const myProducto = new Producto(null, title, imageUrl, description, price); //instancio un nuevo producto
@@ -49,12 +49,15 @@ exports.getEditProduct = (req, res, next) => {
     return res.redirect("/");
   }
   const proId = req.params.productId;
-  Producto.findByPk(proId)
-    .then((miProducto) => {
+  //objeto Usuario  -- methodo creado por la relacion getProductos
+  req.usuario
+    .getProductos({ where: { id: proId } })
+    // Producto.findByPk(proId)
+    .then((miProductos) => {
+      const miProducto = miProductos[0];
       if (!miProducto) {
         res.redirect("/");
       }
-      // console.log(misProductos);
       res.render("admin/edit-product", {
         pageTitle: "Edit TI Products",
         path: "/admin/edit-product",
@@ -62,7 +65,9 @@ exports.getEditProduct = (req, res, next) => {
         prod: miProducto,
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      // console.log(err);
+    });
 };
 
 exports.postEditProduct = (req, res, next) => {
@@ -85,7 +90,7 @@ exports.postEditProduct = (req, res, next) => {
       res.redirect("/admin/products");
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
     });
 
   // const myUpdateProducto = new Producto(
@@ -104,7 +109,8 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProductsA = (req, res, next) => {
-  Producto.findAll()
+  req.usuario
+    .getProductos()
     .then((misProductos) => {
       res.render("admin/products", {
         prod: misProductos,
@@ -112,7 +118,9 @@ exports.getProductsA = (req, res, next) => {
         path: "/admin/products",
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      // console.log(err);
+    });
 };
 
 exports.postDeleteProduct = (req, res, next) => {
@@ -125,5 +133,7 @@ exports.postDeleteProduct = (req, res, next) => {
       console.log("Producto destruido");
       res.redirect("/admin/products");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      // console.log(err);
+    });
 };
