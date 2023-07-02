@@ -15,12 +15,15 @@ exports.postAddProduct = (req, res, next) => {
   const price = req.body.price;
   const description = req.body.description;
   //metodo create para insertar en la bd
-  Producto.create({
-    title: title,
-    price: price,
-    imageUrl: imageUrl,
-    description: description,
-  })
+  // https://sequelize.org/docs/v6/core-concepts/assocs/#special-methodsmixins-added-to-instances
+  //req.usuario es un objeto tipo Usuario del modelo sequelizee
+  req.usuario
+    .createProducto({
+      title: title,
+      price: price,
+      imageUrl: imageUrl,
+      description: description,
+    })
     .then((resultado) => {
       // console.log(resultado);
       console.log("Producto Creado!!");
