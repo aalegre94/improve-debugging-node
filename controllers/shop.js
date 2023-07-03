@@ -89,27 +89,6 @@ exports.getCart = (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-  // Carro.getCart((cart) => {
-  //   Producto.fetchAll((misProductos) => {
-  //     const cartProductos = [];
-  //     for (let miProd of misProductos) {
-  //       const cartProductoData = cart.products.find(
-  //         (prod) => prod.id === miProd.id
-  //       );
-  //       if (cartProductoData) {
-  //         cartProductos.push({
-  //           productData: miProd,
-  //           qty: cartProductoData.qty,
-  //         });
-  //       }
-  //     }
-  //     res.render("shop/cart", {
-  //       pageTitle: "Your Cart",
-  //       path: "/cart",
-  //       misProductos: cartProductos,
-  //     });
-  //   });
-  // });
 };
 
 //para agregar productos desde la vista de detalle
@@ -117,11 +96,43 @@ exports.postCart = (req, res, next) => {
   //aca usamos body xq es un elemento del form
   //para usarlo usamos el name de cada elemento html
   const prodId = req.body.productId;
+  let fetchCarro;
+  req.usuario
+    .getCarro()
+    .then((carro) => {
+      fetchCarro = carro;
+      return carro.getProductos({ where: { id: prodId } });
+    })
+    .then((misProductos) => {
+      let miProducto;
+      if (misProductos.length > 0) {
+        miProducto = misProductos[0];
+      }
+      let newQuantity = 1;
+      if (miProducto) {
+        //
+      }
+      return Producto.findByPk(prodId)
+        .then((miProducto) => {
+          return fetchCarro.addProducto(miProducto, {
+            through: { quantity: newQuantity },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .then(() => {
+      res.redirect("/cart");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   // console.log("postCart - ", prodId);
-  Producto.findByid(prodId, (misProductos) => {
-    Carro.addProduct(prodId, misProductos.price);
-  });
-  res.redirect("/cart");
+  // Producto.findByid(prodId, (misProductos) => {
+  //   Carro.addProduct(prodId, misProductos.price);
+  // });
+  // res.redirect("/cart");
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
