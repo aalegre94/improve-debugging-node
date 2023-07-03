@@ -79,11 +79,14 @@ sequelize
     return usuario;
   })
   .then((usuario) => {
+    return usuario.createCarro();
     // console.log(usuario);
+  })
+  .then((carro) => {
     app.listen(3000);
   })
   .catch((err) => {
-    // console.log(err);
+    console.log(err);
   });
 
 //puerto escucha

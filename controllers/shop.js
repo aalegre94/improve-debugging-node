@@ -69,27 +69,47 @@ exports.getProduct = (req, res, next) => {
 
 //para ver el carrito
 exports.getCart = (req, res, next) => {
-  Carro.getCart((cart) => {
-    Producto.fetchAll((misProductos) => {
-      const cartProductos = [];
-      for (let miProd of misProductos) {
-        const cartProductoData = cart.products.find(
-          (prod) => prod.id === miProd.id
-        );
-        if (cartProductoData) {
-          cartProductos.push({
-            productData: miProd,
-            qty: cartProductoData.qty,
+  req.usuario
+    .getCarro()
+    .then((carro) => {
+      console.log(carro);
+      return carro
+        .getProductos()
+        .then((cartProductos) => {
+          res.render("shop/cart", {
+            pageTitle: "Your Cart",
+            path: "/cart",
+            misProductos: cartProductos,
           });
-        }
-      }
-      res.render("shop/cart", {
-        pageTitle: "Your Cart",
-        path: "/cart",
-        misProductos: cartProductos,
-      });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  });
+  // Carro.getCart((cart) => {
+  //   Producto.fetchAll((misProductos) => {
+  //     const cartProductos = [];
+  //     for (let miProd of misProductos) {
+  //       const cartProductoData = cart.products.find(
+  //         (prod) => prod.id === miProd.id
+  //       );
+  //       if (cartProductoData) {
+  //         cartProductos.push({
+  //           productData: miProd,
+  //           qty: cartProductoData.qty,
+  //         });
+  //       }
+  //     }
+  //     res.render("shop/cart", {
+  //       pageTitle: "Your Cart",
+  //       path: "/cart",
+  //       misProductos: cartProductos,
+  //     });
+  //   });
+  // });
 };
 
 //para agregar productos desde la vista de detalle
